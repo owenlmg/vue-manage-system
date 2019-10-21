@@ -4,19 +4,19 @@
             <div class="ms-title">后台管理系统</div>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="ms-content">
                 <el-form-item prop="username">
-                    <el-input v-model="ruleForm.username" placeholder="username">
+                    <el-input v-model="ruleForm.username" placeholder="用户名">
                         <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input type="password" placeholder="password" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')">
+                    <el-input type="password" placeholder="密码" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')">
                         <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
                     </el-input>
                 </el-form-item>
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
                 </div>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
+                <p class="login-tips">{{error}}</p>
             </el-form>
         </div>
     </div>
@@ -27,8 +27,8 @@
         data: function(){
             return {
                 ruleForm: {
-                    username: 'admin',
-                    password: '123123'
+                    username: '',
+                    password: ''
                 },
                 rules: {
                     username: [
@@ -37,20 +37,45 @@
                     password: [
                         { required: true, message: '请输入密码', trigger: 'blur' }
                     ]
-                }
+                },
+                error: ''
             }
         },
         methods: {
             submitForm(formName) {
+                let that = this;
                 this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        localStorage.setItem('ms_username',this.ruleForm.username);
-                        this.$router.push('/');
+                    if(valid) {
+                        this.$axios.post(this.path + '/auth/login', {
+                            username: this.ruleForm.username,
+                            password: this.ruleForm.password
+                        }).then((res) => {
+                            console.log(res);
+                            if(res && res.data && res.data.code == 1) {
+                                this.error = '';
+                                localStorage.setItem('ms_username',this.ruleForm.username);
+                                that.$router.push('/');
+                            } else if(res.data && res.data.msg) {
+                                this.error = res.data.msg;
+                            } else {
+                                this.error = '登录失败';
+                            }
+                        })
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });
+
+
+                // this.$refs[formName].validate((valid) => {
+                //     if (valid) {
+                //         localStorage.setItem('ms_username',this.ruleForm.username);
+                //         this.$router.push('/');
+                //     } else {
+                //         console.log('error submit!!');
+                //         return false;
+                //     }
+                // });
             }
         }
     }
@@ -96,6 +121,6 @@
     .login-tips{
         font-size:12px;
         line-height:30px;
-        color:#fff;
+        color:red;
     }
 </style>

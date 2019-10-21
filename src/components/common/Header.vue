@@ -4,7 +4,7 @@
         <div class="collapse-btn" @click="collapseChage">
             <i class="el-icon-menu"></i>
         </div>
-        <div class="logo">后台管理系统</div>
+        <div class="logo">后台管理</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
@@ -16,7 +16,7 @@
                 <!-- 消息中心 -->
                 <div class="btn-bell">
                     <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
-                        <router-link to="/tabs">
+                        <router-link to="">
                             <i class="el-icon-bell"></i>
                         </router-link>
                     </el-tooltip>
@@ -30,12 +30,9 @@
                         {{username}} <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <a href="http://blog.gdfengshuo.com/about/" target="_blank">
-                            <el-dropdown-item>关于作者</el-dropdown-item>
-                        </a>
-                        <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
-                            <el-dropdown-item>项目仓库</el-dropdown-item>
-                        </a>
+                        <!--<a href="http://blog.gdfengshuo.com/about/" target="_blank">-->
+                            <!--<el-dropdown-item>跳转链接</el-dropdown-item>-->
+                        <!--</a>-->
                         <el-dropdown-item divided  command="loginout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -51,7 +48,7 @@
                 collapse: false,
                 fullscreen: false,
                 name: 'linxin',
-                message: 2
+                message: 0
             }
         },
         computed:{
@@ -113,7 +110,7 @@
         position: relative;
         box-sizing: border-box;
         width: 100%;
-        height: 70px;
+        height: 50px;
         font-size: 22px;
         color: #fff;
     }
@@ -121,12 +118,12 @@
         float: left;
         padding: 0 21px;
         cursor: pointer;
-        line-height: 70px;
+        line-height: 50px;
     }
     .header .logo{
         float: left;
         width:250px;
-        line-height: 70px;
+        line-height: 50px;
     }
     .header-right{
         float: right;
@@ -134,7 +131,7 @@
     }
     .header-user-con{
         display: flex;
-        height: 70px;
+        height: 50px;
         align-items: center;
     }
     .btn-fullscreen{

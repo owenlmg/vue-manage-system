@@ -155,7 +155,7 @@
                 this.idx = index;
                 this.delVisible = true;
             },
-            delAll() {
+            add() {
                 const length = this.multipleSelection.length;
                 let str = '';
                 this.del_list = this.del_list.concat(this.multipleSelection);

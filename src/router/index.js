@@ -4,10 +4,11 @@ import Router from 'vue-router';
 Vue.use(Router);
 
 export default new Router({
+    base: process.env.BASE_URL + 'admin',
     routes: [
         {
             path: '/',
-            redirect: '/dashboard'
+            redirect: '/type'
         },
         {
             path: '/',
@@ -18,6 +19,16 @@ export default new Router({
                     path: '/dashboard',
                     component: resolve => require(['../components/page/Dashboard.vue'], resolve),
                     meta: { title: '系统首页' }
+                },
+                {
+                    path: '/supplytype',
+                    component: resolve => require(['../components/page/SupplyType.vue'], resolve),
+                    meta: { title: '供货商类别' }
+                },
+                {
+                    path: '/supply',
+                    component: resolve => require(['../components/page/Supply.vue'], resolve),
+                    meta: { title: '供货商' }
                 },
                 {
                     path: '/icon',
@@ -49,13 +60,13 @@ export default new Router({
                     // markdown组件
                     path: '/markdown',
                     component: resolve => require(['../components/page/Markdown.vue'], resolve),
-                    meta: { title: 'markdown编辑器' }    
+                    meta: { title: 'markdown编辑器' }
                 },
                 {
                     // 图片上传组件
                     path: '/upload',
                     component: resolve => require(['../components/page/Upload.vue'], resolve),
-                    meta: { title: '文件上传' }   
+                    meta: { title: '文件上传' }
                 },
                 {
                     // vue-schart组件
@@ -90,6 +101,26 @@ export default new Router({
                     path: '/403',
                     component: resolve => require(['../components/page/403.vue'], resolve),
                     meta: { title: '403' }
+                },
+                {
+                    path: '/type',
+                    component: resolve => require(['../views/Type.vue'], resolve),
+                    meta: { title: '类别管理' }
+                },
+                {
+                    path: '/corp',
+                    component: resolve => require(['../views/Corp.vue'], resolve),
+                    meta: { title: '商家管理' }
+                },
+                {
+                    path: '/activity',
+                    component: resolve => require(['../views/Activity.vue'], resolve),
+                    meta: { title: '活动管理' }
+                },
+                {
+                    path: '/message',
+                    component: resolve => require(['../views/Message.vue'], resolve),
+                    meta: { title: '留言管理' }
                 }
             ]
         },
@@ -100,6 +131,11 @@ export default new Router({
         {
             path: '*',
             redirect: '/404'
+        },
+        {
+            path: '/front/index',
+            component: resolve => require(['../views/front/index.vue'], resolve),
+            meta: { title: '首页' }
         }
     ]
 })
